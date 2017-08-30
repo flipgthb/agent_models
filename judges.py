@@ -1,3 +1,10 @@
+from head import *
+from numpy import (vstack, split, arange, ones, zeros, r_, eye, array, stack,
+                   fill_diagonal, linspace, cos, sin)
+from numpy.linalg import norm
+from numpy.random import randn, choice
+
+
 class JudgePanels(HEODAgentSociety):
     N, K, P = 18, 5, 14  # number of agents, internal dimension and number of issues
     panel_compositions = ('Aaa', 'Aab', 'Abb', 'Bbb', 'Bba', 'Baa')  # types of panel by political affiliation
@@ -37,7 +44,7 @@ class JudgePanels(HEODAgentSociety):
           - mu0XX, mu0XY: floats - intra and extra-party initial distrust
           - c0A, c0B: positive floats - initial opinion uncertainties for each party
           - s20: positive float - initial distrust uncertainty
-          
+
         API:
         ====
           Although you can use any method inside this object, it intended to be used
@@ -49,7 +56,7 @@ class JudgePanels(HEODAgentSociety):
           - observables: Propery to compute and return all the observables in this
           system. Notice that observable denotes a quantity of interest, not anything
           readable in memory.
-          
+
           Options:
           --------
           opinion_norm: positive float; default is 1.0 - gives the norm for the agents' 
@@ -69,7 +76,7 @@ class JudgePanels(HEODAgentSociety):
         self.mu0XX, self.mu0XY = mu0XX, mu0XY
         self.c0A, c0B = c0A, c0B
         self.s20 = s20
-        
+
         # Building the initial opinion vectors
         #             law component                 party compoenent
         A = alpha_law*self.law_vector + alpha_party*self.party_vector

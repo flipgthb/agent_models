@@ -24,7 +24,7 @@
 # what the code does from reading it.
 
 import functools
-from itertools import count , islice
+from itertools import count, islice
 from copy import deepcopy
 from collections import defaultdict
 from numpy import (cos, sin, sqrt, r_, ones, tile, vstack, array, ndindex, ndim,
@@ -37,8 +37,9 @@ from scipy.stats.distributions import norm as normal
 
 __all__ = ['triangle_indices', 'rand_sphere', 'random_at_angle',
            'dynamics', 'n_steps', 'record_trajectory',
-           'BOMAgentSociety', 'random_initialization',
-           'TeacherStutdentScneario', 'RUDBOMAgentSociety']
+           'random_from_cosine', 'HEODAgentSociety',
+           'TeacherStutdentScneario', 'RUDHEODAgentSociety',
+           'row_norm']
 
 # # Simulation Interface
 
@@ -190,10 +191,10 @@ def derivatives_lnZ(arg, const, z):
 
 
 def compute_deltas_w_and_C(w, C, x, sigma, phi_mu_l, z):
-    gamma = sqrt(x @ (C @ x)) / norm(x)
+    gamma = sqrt(x@C@x)
     hs_g = w @ x * sigma / gamma 
     dlnZ_dhs_g, d2lnZ_dhs_g = derivatives_lnZ(hs_g, phi, z)
-    dw = dlnZ_dhs_g*(C@x)*sigma/gamma
+    dw = dlnZ_dhs_g*(C@x)*sigma/gamma/norm_x
     dC = d2lnZ_dhs_g*C@outer(x, x)@C/(gamma*gamma)
     return [dw, dC]
 
@@ -224,7 +225,7 @@ def compute_deltas(w, C, mu, s2, x, sigma):
     """
     K = w.shape[0]
     h = x@w
-    gamma = sqrt(x@C@x)/norm(x)
+    gamma = sqrt(x@C@x)
     lmbda = sqrt(1+s2)
     hs_g = h*sigma/gamma
     mu_l = mu/lmbda
@@ -285,7 +286,7 @@ class HEODAgentSociety(object):
         assert mu0.shape == s20.shape == (self.N, self.N)
         self.mu = mu0.copy()
         self.s2 = s20.copy()
-        self.initial_state = [w0.copy(), C0.copy(), mu0.copy(), s20.copy()]
+        self._initial_state = [w0.copy(), C0.copy(), mu0.copy(), s20.copy()]
         self._state_struct = [('w', 'f8', self.K),
                               ('C', 'f8', (self.K, self.K)),
                               ('mu', 'f8', self.N),
@@ -383,7 +384,7 @@ class HEODAgentSociety(object):
 
 ## Teacher-Student Scenario
 class TeacherStutdentScneario(HEODAgentSociety):
-    def __init__(self, teacher, theta_0, C0, mu0, s20, *args, **kwargs):
+    def __init__(self, teacher, theta_0, C0, mu0, s20, *args, opinion_norm=1., **kwargs):
         """Teacher/Student learning scenario
         Input:
         ------
@@ -397,7 +398,7 @@ class TeacherStutdentScneario(HEODAgentSociety):
         student = random_at_angle(teacher, theta_0)
         w0 = vstack([student, teacher])
         K = teacher.shape[0]
-        w0 /= row_norm(w0)
+        w0 *= opinion_norm/row_norm(w0)
         super().__init__(w0, C0, mu0, s20, *args, **kwargs)
 
     def update(self, *args, **params):
