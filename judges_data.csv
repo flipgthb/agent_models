@@ -1,0 +1,31 @@
+Case type,Apointee party,dd,rd,rr
+Affirmative Action,D,0.81,0.83,0.6
+Affirmative Action,R,0.69,0.46,0.34
+NEPA,D,0.71,0.42,0.1
+NEPA,R,0.42,0.06,0.2
+11th Amendment,D,0.73,0.54,0.58
+11th Amendment,R,0.44,0.46,0.26
+NLRB,D,0.75,0.57,0.5
+NLRB,R,0.55,0.42,0.23
+Sex discrimination,D,0.76,0.52,0.42
+Sex discrimination,R,0.44,0.37,0.3
+ADA,D,0.5,0.45,0.35
+ADA,R,0.38,0.29,0.17
+Campaign finance,D,0.62,0.39,0.35
+Campaign finance,R,0.37,0.26,0.31
+Piercing corporate veil,D,0.6,0.36,0.3
+Piercing corporate veil,R,0.34,0.26,0.21
+EPA,D,0.76,0.58,0.55
+EPA,R,0.58,0.54,0.4
+Obscenity,D,0.44,0.34,0.35
+Obscenity,R,0.33,0.29,0.2
+Title VII,D,0.54,0.47,0.34
+Title VII,R,0.34,0.3,0.39
+Desegregation,D,0.71,0.77,0.71
+Desegregation,R,0.72,0.67,0.56
+FCC,D,0.8,0.61,0.47
+FCC,R,0.66,0.41,0.54
+Contract clause,D,0.5,0.31,0.26
+Contract clause,R,0.38,0.27,0.17
+Commerial speech,D,0.53,0.64,0.57
+Commerial speech,R,0.69,0.5,0.49
