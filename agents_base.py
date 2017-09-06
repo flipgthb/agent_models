@@ -1,9 +1,10 @@
-# =---------------------------------------------------------------------------=
-# HEAD: Homo Entropicus Agents, Dude
+# =-----------------------------------------------------------------------------=
+# Agents Base: Implementation for the Entropic Learning Dynamics
+#              for Agents Societies
 # Version: 0.1.0
 # Author: Felippe Alves
 # E-Mail: flipgm@gmail.com
-# =---------------------------------------------------------------------------=
+# =-----------------------------------------------------------------------------=
 # This module contains the basic dynamics generator, the class for Entropic
 # Agents Societies (and the particular case of Teacher-Student learning
 # scenario), and some utility funtions used in the analysis of such
